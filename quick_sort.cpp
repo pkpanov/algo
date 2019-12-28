@@ -15,7 +15,7 @@ void print_array( int arr[], int n ) {
     printf("\n");
 }
 
-int paritition( int arr[], int low, int high ) {
+int partition( int arr[], int low, int high ) {
 
     int pivot = arr[ high ];
     int i = low;
@@ -37,9 +37,38 @@ void quick_sort( int arr[], int low, int high ) {
 
     if ( low < high ) {
 
-        int p = paritition( arr, low, high );
+        int p = partition( arr, low, high );
         quick_sort( arr, low, p - 1 );
         quick_sort( arr, p + 1, high );
+    }
+}
+
+void quick_sort_iterative( int arr[], int low, int high ) {
+
+    vector< int > st( high - low + 1, 0 );
+    int top = -1;
+
+    st[ ++top ] = low;
+    st[ ++top ] = high;
+
+    while ( top >= 0 ) {
+
+        high = st[ top-- ];
+        low = st[ top-- ];
+
+        int p = partition( arr, low, high );
+
+        if ( p - 1 > low ) {
+
+            st[ ++top ] = low;
+            st[ ++top ] = p - 1;
+        }
+
+        if ( p + 1 < high ) {
+
+            st[ ++top ] = p + 1;
+            st[ ++top ] = high;
+        }
     }
 }
 
@@ -52,7 +81,8 @@ int main( ) {
     printf( "original array: " );
     print_array( arr, n );
   
-    quick_sort( arr, 0, n - 1 );
+    //quick_sort( arr, 0, n - 1 );
+    quick_sort_iterative( arr, 0, n - 1 );
  
     printf( "sorted array: " );
     print_array( arr, n );
