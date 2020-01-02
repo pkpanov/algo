@@ -1,58 +1,21 @@
 /*
+    quick sort for singly linked list
 */
 
-#include <cstdio>
+#include "common.h"
 
-using namespace std;
+struct list * partition( struct list **head_ptr, struct list **tail_ptr ) {
 
-struct node {
-
-    int data;
-    node *next;
-};
-
-void print_list( node *list ) {
-
-    while ( list != NULL ) {
-
-        printf( "%d ", list->data );
-        list = list->next;
-    }
-    printf( "\n" );
-}
-
-void add_to_head( node **head_ptr, int data ) {
-
-    node *new_node = new node();
-
-    new_node->data = data;
-    new_node->next = *head_ptr;
-    *head_ptr= new_node;
-}
-
-struct node * get_tail( struct node *list ) {
-
-    while ( ( list != NULL ) &&
-            ( list->next != NULL ) ) {
-
-        list = list->next;
-    }
-
-    return list;
-}
-
-struct node * partition( struct node **head_ptr, struct node **tail_ptr ) {
-
-    struct node *pivot = *tail_ptr;
-    struct node *prev = NULL;
-    struct node *cur = *head_ptr;
-    struct node *last = pivot;
+    struct list *pivot = *tail_ptr;
+    struct list *prev = NULL;
+    struct list *cur = *head_ptr;
+    struct list *last = pivot;
 
     *head_ptr = NULL;
 
     while ( cur != pivot ) {
 
-        node *next = cur->next;
+        list *next = cur->next;
 
         if ( cur->data < pivot->data ) {
 
@@ -77,16 +40,16 @@ struct node * partition( struct node **head_ptr, struct node **tail_ptr ) {
     return pivot;
 }
 
-struct node * quick_sort( struct node *head, struct node *tail ) {
+struct list * quick_sort( struct list *head, struct list *tail ) {
 
     if ( ( head == NULL ) ||
          ( head == tail ) ) return head;
 
-    struct node *pivot = partition( &head, &tail );
+    struct list *pivot = partition( &head, &tail );
 
     if ( head != pivot ) {
 
-        struct node *tmp = head;
+        struct list *tmp = head;
         while ( tmp->next != pivot )
             tmp = tmp->next;
         tmp->next = NULL;
@@ -102,16 +65,11 @@ struct node * quick_sort( struct node *head, struct node *tail ) {
     return head;
 }
 
-int main() {
+void doit() {
 
-    node *list = NULL;
+    list *list = NULL;
 
-    add_to_head( &list, 15 );
-    add_to_head( &list, 10 );
-    add_to_head( &list, 5 );
-    add_to_head( &list, 20 );
-    add_to_head( &list, 3 );
-    add_to_head( &list, 2 );
+    gen_random_list( &list, 20 );
 
     printf( "original list: " );
     print_list( list );
@@ -120,6 +78,4 @@ int main() {
 
     printf( "sorted list: " );
     print_list( list );
-
-    return 0;
 }

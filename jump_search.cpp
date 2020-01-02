@@ -1,12 +1,12 @@
 /*
+    jump search: search with sqrt(n) step
 */
 
-#include <stdio.h>
-#include <math.h>
+#include "common.h"
 
-#define min( a, b ) ( a < b ? a : b )
+//#define min( a, b ) ( a < b ? a : b )
 
-int jump_search( int arr[], int n, int x ) {
+int jump_search( vector< int > & arr, int n, int x ) {
 
     int step = ( int )sqrt( n );
     int prev = 0;
@@ -35,16 +35,20 @@ int jump_search( int arr[], int n, int x ) {
     }
 }
 
-int main() {
+void doit() {
 
-    int arr[] = { 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610 };
-    int n = sizeof( arr ) / sizeof( arr[ 0 ] );
-    int x = 55;
+    vector< int > arr;
+    int n = 20;
+
+    gen_random_arr( arr, 20 );
+
+    int x = arr[ 0 ];
+
+    sort( arr.begin(), arr.end() );
+    print_arr( arr );
 
     int result = jump_search( arr, n, x );
 
     if ( result == -1 ) printf( "element %d is not present in the array\n", x );
     else printf( "element %d is present at index %d\n", x, result );
-
-    return 0;
 }

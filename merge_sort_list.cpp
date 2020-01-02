@@ -1,41 +1,15 @@
 /*
+    merge sort for doubly linked list
 */
 
-#include <cstdio>
+#include "common.h"
 
-using namespace std;
+list * merge( list *a, list *b );
+void split_list( list *head, list **a, list **b );
 
-struct node {
+void merge_sort( list **head_ptr ) {
 
-    int data;
-    node *next;
-};
-
-node * merge( node *a, node *b );
-void split_list( node *list, node **a, node **b );
-
-void print_list( node *list ) {
-
-    while ( list != NULL ) {
-
-        printf( "%d ", list->data );
-        list = list->next;
-    }
-    printf( "\n" );
-}
-
-void add_to_head( node **head_ptr, int data ) {
-
-    node *new_node = new node();
-
-    new_node->data = data;
-    new_node->next = *head_ptr;
-    *head_ptr= new_node;
-}
-
-void merge_sort( node **head_ptr ) {
-
-    node *a, *b;
+    list *a, *b;
 
     if ( ( *head_ptr == NULL ) || ( ( *head_ptr )->next == NULL ) ) return;
 
@@ -47,9 +21,9 @@ void merge_sort( node **head_ptr ) {
     *head_ptr = merge( a, b );
 }
 
-node * merge( node *a, node *b ) {
+list * merge( list *a, list *b ) {
 
-    node *result = NULL;
+    list *result = NULL;
 
     if ( a == NULL ) {
 
@@ -61,21 +35,25 @@ node * merge( node *a, node *b ) {
 
         result = a;
         result->next = merge( a->next, b );
+        result->next->prev = result;
+        result->prev = NULL;
     } else { // if ( a->data > b->data ) {
 
         result = b;
         result->next = merge( a, b->next );
+        result->next->prev = result;
+        result->prev = NULL;
     }
 
     return result;
 }
 
-void split_list( node *list, node **a, node **b ) {
+void split_list( list *head, list **a, list **b ) {
 
-    node *fast, *slow;
+    list *fast, *slow;
 
-    slow = list;
-    fast = list->next;
+    slow = head;
+    fast = head->next;
 
     while ( fast != NULL ) {
 
@@ -87,21 +65,16 @@ void split_list( node *list, node **a, node **b ) {
         }
     }
 
-    *a = list;
+    *a = head;
     *b = slow->next;
     slow->next = NULL;
 }
 
-int main() {
+void doit() {
 
-    node *list = NULL;
+    list *list = NULL;
 
-    add_to_head( &list, 15 );
-    add_to_head( &list, 10 );
-    add_to_head( &list, 5 );
-    add_to_head( &list, 20 );
-    add_to_head( &list, 3 );
-    add_to_head( &list, 2 );
+    gen_random_list( &list, 20 );
 
     printf( "original list: " );
     print_list( list );
@@ -110,6 +83,4 @@ int main() {
 
     printf( "sorted list: " );
     print_list( list );
-
-    return 0;
 }

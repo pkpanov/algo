@@ -1,23 +1,10 @@
 /*
+    kth smallest/largest element in array
 */
 
-#include <cstdio>
-#include <vector>
-#include <algorithm>
+#include "common.h"
 
-using namespace std;
-
-#define INF 0x7FFFFFFF
-
-void print_array( int arr[], int n ) {
-
-    int i;
-
-    for ( i = 0; i < n; i++ ) printf( "%d ", arr[ i ] );
-    printf("\n");
-}
-
-int partition( int arr[], int low, int high ) {
+int partition( vector< int > & arr, int low, int high ) {
 
     int pivot = arr[ high ];
     int i = low;
@@ -35,7 +22,7 @@ int partition( int arr[], int low, int high ) {
     return i;
 }
 
-int random_partition( int arr[], int low, int high ) {
+int random_partition( vector< int > & arr, int low, int high ) {
 
     int n = high - low + 1;
     int r = rand() % n;
@@ -45,7 +32,7 @@ int random_partition( int arr[], int low, int high ) {
     return partition( arr, low, high );
 }
 
-int kth_element( int arr[], int low, int high, int k ) {
+int kth_element( vector< int > & arr, int low, int high, int k ) {
 
     if ( ( k > 0 ) && ( k <= high - low + 1 ) ) {
 
@@ -66,15 +53,15 @@ int kth_element( int arr[], int low, int high, int k ) {
     return INF;
 }
 
-int main( ) {
+void doit( ) {
 
-    int arr[] = { 1, 10, 11, 3, 12, 8, 13, 14, 9, 22 };
-    int n = sizeof( arr ) / sizeof( arr[ 0 ] );
-    int k = 8;
+    vector< int > arr;
+    int n = 20;
 
-    srand( 0 );
-  
+    gen_random_arr( arr, 20 );
+    print_arr( arr );
+
+    int k = rand() % 20 + 1;
+
     printf( "%d-th element: %d\n", k, kth_element( arr, 0, n - 1, k ) );
-
-    return 0;
 }

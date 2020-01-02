@@ -1,21 +1,10 @@
 /*
+    radix sort
 */
 
-#include <cstdio>
-#include <vector>
-#include <algorithm>
+#include "common.h"
 
-using namespace std;
-
-void print_array( int arr[], int n ) {
-
-    int i;
-
-    for ( i = 0; i < n; i++ ) printf( "%d ", arr[ i ] );
-    printf("\n");
-}
-
-void count_sort( int arr[], int n, int exp ) {
+void count_sort( vector< int > & arr, int n, int exp ) {
 
     vector< int > sorted( n );
     int i, count[ 10 ];
@@ -38,7 +27,7 @@ void count_sort( int arr[], int n, int exp ) {
         arr[ i ] = sorted[ i ];
 }
 
-void radix_sort( int arr[], int n ) {
+void radix_sort( vector< int > & arr, int n ) {
 
     int me = arr[ 0 ];
 
@@ -49,18 +38,18 @@ void radix_sort( int arr[], int n ) {
         count_sort( arr, n, exp );
 }
 
-int main( ) {
+void doit() {
 
-    int arr[] = { 12, 11, 13, 5, 6, 7 };
-    int n = sizeof( arr ) / sizeof( arr[ 0 ] );
-  
+    vector< int > arr;
+    int n = 20;
+
+    gen_random_arr( arr, 20 );
+
     printf( "original array: " );
-    print_array( arr, n );
-  
-    radix_sort( arr, n );
- 
-    printf( "sorted array: " );
-    print_array( arr, n );
+    print_arr( arr );
 
-    return 0;
+    radix_sort( arr, n );
+
+    printf( "sorted array: " );
+    print_arr( arr );
 }

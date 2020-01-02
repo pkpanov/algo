@@ -1,9 +1,10 @@
 /*
+    binary search: recursive, iterative and topcoder variations
 */
 
-#include <stdio.h>
+#include "common.h"
 
-int binary_search_recursive( int arr[], int l, int r, int x ) {
+int binary_search_recursive( vector< int > & arr, int l, int r, int x ) {
 
     if ( r >= l ) {
 
@@ -24,7 +25,7 @@ int binary_search_recursive( int arr[], int l, int r, int x ) {
     return -1;
 }
 
-int binary_search_iterative( int arr[], int l, int r, int x ) {
+int binary_search_iterative( vector< int > & arr, int l, int r, int x ) {
 
     while ( l <= r ) {
 
@@ -45,7 +46,7 @@ int binary_search_iterative( int arr[], int l, int r, int x ) {
     return -1;
 }
 
-int binary_search_topcoder( int arr[], int l, int r, int x ) {
+int binary_search_topcoder( vector< int > & arr, int l, int r, int x ) {
 
     while ( l + 1 < r ) {
 
@@ -63,11 +64,17 @@ int binary_search_topcoder( int arr[], int l, int r, int x ) {
     return ( arr[ l ] == x ) ? l : -1;
 }
 
-int main() {
+void doit() {
 
-    int arr[] = { 2, 3, 4, 10, 40, 44, 55 };
-    int n = sizeof( arr ) / sizeof( arr[ 0 ] );
-    int x = 44;
+    vector< int > arr;
+    int n = 20;
+
+    gen_random_arr( arr, 20 );
+
+    int x = arr[ 0 ];
+
+    sort( arr.begin(), arr.end() );
+    print_arr( arr );
 
     int result1 = binary_search_iterative( arr, 0, n - 1, x );
 
@@ -83,6 +90,5 @@ int main() {
 
     if ( result3 == -1 ) printf( "element %d is not present in the array\n", x );
     else printf( "element %d is present at index %d\n", x, result3 );
-
-    return 0;
 }
+

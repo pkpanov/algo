@@ -1,21 +1,10 @@
 /*
+    quick sort: recursive and iterative
 */
 
-#include <cstdio>
-#include <vector>
-#include <algorithm>
+#include "common.h"
 
-using namespace std;
-
-void print_array( int arr[], int n ) {
-
-    int i;
-
-    for ( i = 0; i < n; i++ ) printf( "%d ", arr[ i ] );
-    printf("\n");
-}
-
-int partition( int arr[], int low, int high ) {
+int partition( vector< int > & arr, int low, int high ) {
 
     int pivot = arr[ high ];
     int i = low;
@@ -33,7 +22,7 @@ int partition( int arr[], int low, int high ) {
     return i;
 }
 
-void quick_sort( int arr[], int low, int high ) {
+void quick_sort( vector< int > & arr, int low, int high ) {
 
     if ( low < high ) {
 
@@ -43,7 +32,7 @@ void quick_sort( int arr[], int low, int high ) {
     }
 }
 
-void quick_sort_iterative( int arr[], int low, int high ) {
+void quick_sort_iterative( vector< int > & arr, int low, int high ) {
 
     vector< int > st( high - low + 1, 0 );
     int top = -1;
@@ -72,20 +61,19 @@ void quick_sort_iterative( int arr[], int low, int high ) {
     }
 }
 
-int main( ) {
+void doit() {
 
-    //int arr[] = { 12, 11, 13, 5, 6, 7 };
-    int arr[] = { 10, 11, 12, 13, 14, 9 };
-    int n = sizeof( arr ) / sizeof( arr[ 0 ] );
+    vector< int > arr;
+    int n = 20;
+
+    gen_random_arr( arr, 20 );
   
     printf( "original array: " );
-    print_array( arr, n );
+    print_arr( arr );
   
     //quick_sort( arr, 0, n - 1 );
     quick_sort_iterative( arr, 0, n - 1 );
  
     printf( "sorted array: " );
-    print_array( arr, n );
-
-    return 0;
+    print_arr( arr );
 }

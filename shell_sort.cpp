@@ -1,21 +1,10 @@
 /*
+    shell sort
 */
 
-#include <cstdio>
-#include <vector>
-#include <algorithm>
+#include "common.h"
 
-using namespace std;
-
-void print_array( int arr[], int n ) {
-
-    int i;
-
-    for ( i = 0; i < n; i++ ) printf( "%d ", arr[ i ] );
-    printf("\n");
-}
-
-void shell_sort( int arr[], int n ) {
+void shell_sort( vector< int > & arr, int n ) {
 
     for ( int gap = n / 2; gap > 0; gap /= 2 ) {
 
@@ -36,18 +25,18 @@ void shell_sort( int arr[], int n ) {
     }
 }
 
-int main( ) {
+void doit() {
 
-    int arr[] = { 12, 11, 13, 5, 6, 7 };
-    int n = sizeof( arr ) / sizeof( arr[ 0 ] );
-  
+    vector< int > arr;
+    int n = 20;
+
+    gen_random_arr( arr, 20 );
+
     printf( "original array: " );
-    print_array( arr, n );
-  
-    shell_sort( arr, n );
- 
-    printf( "sorted array: " );
-    print_array( arr, n );
+    print_arr( arr );
 
-    return 0;
+    shell_sort( arr, n );
+
+    printf( "sorted array: " );
+    print_arr( arr );
 }

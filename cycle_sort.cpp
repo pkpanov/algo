@@ -1,13 +1,10 @@
 /*
+    cycle sort
 */
 
-#include <cstdio>
-#include <vector>
-#include <algorithm>
+#include "common.h"
 
-using namespace std;
-
-void print_array( int arr[], int n ) {
+void print_arr( vector< int > & arr, int n ) {
 
     int i;
 
@@ -15,7 +12,7 @@ void print_array( int arr[], int n ) {
     printf("\n");
 }
 
-void cycle_sort( int arr[], int n ) {
+void cycle_sort( vector< int > & arr, int n ) {
 
     int writes = 0;
 
@@ -59,18 +56,18 @@ void cycle_sort( int arr[], int n ) {
     printf( "writes = %d\n", writes );
 }
 
-int main( ) {
+void doit() {
 
-    int arr[] = { 12, 7, 11, 12, 12, 13, 5, 6, 5, 11, 11, 11, 5, 7 };
-    int n = sizeof( arr ) / sizeof( arr[ 0 ] );
-  
+    vector< int > arr;
+    int n = 20;
+
+    gen_random_arr( arr, 20 );
+
     printf( "original array: " );
-    print_array( arr, n );
-  
-    cycle_sort( arr, n );
- 
-    printf( "sorted array: " );
-    print_array( arr, n );
+    print_arr( arr );
 
-    return 0;
+    cycle_sort( arr, n );
+
+    printf( "sorted array: " );
+    print_arr( arr );
 }

@@ -1,9 +1,10 @@
 /*
+    ternary search
 */
 
-#include <stdio.h>
+#include "common.h"
 
-int ternary_search( int arr[], int l, int r, int x ) {
+int ternary_search( vector< int > & arr, int l, int r, int x ) {
 
     if ( r >= l ) {
 
@@ -31,17 +32,20 @@ int ternary_search( int arr[], int l, int r, int x ) {
     return -1;
 }
 
-int main() {
+void doit() {
 
-    int arr[] = { 2, 3, 4, 10, 40, 44, 55 };
-    int n = sizeof( arr ) / sizeof( arr[ 0 ] );
-    int x = 55;
+    vector< int > arr;
+    int n = 20;
+
+    gen_random_arr( arr, 20 );
+
+    int x = arr[ 0 ];
+
+    sort( arr.begin(), arr.end() );
+    print_arr( arr );
 
     int result1 = ternary_search( arr, 0, n - 1, x );
 
     if ( result1 == -1 ) printf( "element %d is not present in the array\n", x );
     else printf( "element %d is present at index %d\n", x, result1 );
-
-    return 0;
 }
-

@@ -1,20 +1,10 @@
 /*
+    merge sort
 */
 
-#include <cstdio>
-#include <vector>
+#include "common.h"
 
-using namespace std;
-
-void print_array( int arr[], int n ) {
-
-    int i;
-
-    for ( i = 0; i < n; i++ ) printf( "%d ", arr[ i ] );
-    printf("\n");
-}
-
-void merge( int arr[], int l, int m, int r ) {
+void merge( vector< int > & arr, int l, int m, int r ) {
 
     int i, j, k;
     int n1 = m - l + 1;
@@ -63,7 +53,7 @@ void merge( int arr[], int l, int m, int r ) {
     }
 }
 
-void merge_sort( int arr[], int l, int r ) {
+void merge_sort( vector< int > & arr, int l, int r ) {
 
     if ( l < r ) {
 
@@ -75,18 +65,18 @@ void merge_sort( int arr[], int l, int r ) {
     }
 }
 
-int main( ) {
+void doit() {
 
-    int arr[] = { 12, 11, 13, 5, 6, 7 };
-    int n = sizeof( arr ) / sizeof( arr[ 0 ] );
+    vector< int > arr;
+    int n = 20;
+
+    gen_random_arr( arr, 20 );
   
     printf( "original array: " );
-    print_array( arr, n );
+    print_arr( arr );
   
     merge_sort( arr, 0, n - 1 );
   
     printf( "sorted array: " );
-    print_array( arr, n );
-
-    return 0;
+    print_arr( arr );
 }

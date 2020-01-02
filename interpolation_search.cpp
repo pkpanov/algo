@@ -1,10 +1,10 @@
 /*
+    iterpolation search: binary search with variable pivot
 */
 
-#include <stdio.h>
-#include <math.h>
+#include "common.h"
 
-int interpolation_search( int arr[], int n, int x ) {
+int interpolation_search( vector< int > & arr, int n, int x ) {
 
     int lo = 0;
     int hi = n - 1;
@@ -29,16 +29,21 @@ int interpolation_search( int arr[], int n, int x ) {
     return -1;
 }
 
-int main() {
+void doit() {
 
-    int arr[] = { 10, 12, 13, 16, 18, 19, 20, 21, 22, 23, 24, 33, 35, 42, 47 };
-    int n = sizeof( arr ) / sizeof( arr[ 0 ] );
-    int x = 18;
+    vector< int > arr;
+    int n = 20;
+
+    gen_random_arr( arr, 20 );
+
+    int x = arr[ 0 ];
+
+    sort( arr.begin(), arr.end() );
+    print_arr( arr );
 
     int result = interpolation_search( arr, n, x );
 
     if ( result == -1 ) printf( "element %d is not present in the array\n", x );
     else printf( "element %d is present at index %d\n", x, result );
-
-    return 0;
 }
+

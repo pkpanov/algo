@@ -1,45 +1,20 @@
 /*
+    insertion sort for singly linked list
 */
 
-#include <cstdio>
+#include "common.h"
 
-using namespace std;
+static
+void sorted_insert( list ** head_ptr, list * new_node );
 
-struct node {
+void insertion_sort( list ** head_ptr ) {
 
-    int data;
-    node *next;
-};
-
-void sorted_insert( node **head_ptr, node *new_node );
-
-void print_list( node *list ) {
-
-    while ( list != NULL ) {
-
-        printf( "%d ", list->data );
-        list = list->next;
-    }
-    printf( "\n" );
-}
-
-void add_to_head( node **head_ptr, int data ) {
-
-    node *new_node = new node();
-
-    new_node->data = data;
-    new_node->next = *head_ptr;
-    *head_ptr= new_node;
-}
-
-void insertion_sort( node **head_ptr ) {
-
-    node * sorted = NULL;
-    node * current = *head_ptr;
+    list * sorted = NULL;
+    list * current = *head_ptr;
 
     while ( current != NULL ) {
 
-        struct node * next = current->next;
+        list *next = current->next;
 
         sorted_insert( &sorted, current );
         current = next;
@@ -48,7 +23,8 @@ void insertion_sort( node **head_ptr ) {
     *head_ptr = sorted;
 }
 
-void sorted_insert( node **head_ptr, node *new_node ) {
+static
+void sorted_insert( list ** head_ptr, list * new_node ) {
 
     if ( ( *head_ptr == NULL ) || ( new_node->data <= ( *head_ptr )->data ) ) {
 
@@ -56,7 +32,7 @@ void sorted_insert( node **head_ptr, node *new_node ) {
         *head_ptr = new_node;
     } else {
 
-        node * current = *head_ptr;
+        list * current = *head_ptr;
 
         while ( ( current->next != NULL ) && ( new_node->data > current->next->data ) ) {
 
@@ -68,16 +44,11 @@ void sorted_insert( node **head_ptr, node *new_node ) {
     }
 }
 
-int main() {
+void doit() {
 
-    node *list = NULL;
+    list *list = NULL;
 
-    add_to_head( &list, 15 );
-    add_to_head( &list, 10 );
-    add_to_head( &list, 5 );
-    add_to_head( &list, 20 );
-    add_to_head( &list, 3 );
-    add_to_head( &list, 2 );
+    gen_random_list( &list, 20 );
 
     printf( "original list: " );
     print_list( list );
@@ -86,6 +57,4 @@ int main() {
 
     printf( "sorted list: " );
     print_list( list );
-
-    return 0;
 }
